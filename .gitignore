@@ -20,3 +20,5 @@ docs/
 /types
 /cache_hardhat
 /artifacts
+/medusa
+/crytic-export
