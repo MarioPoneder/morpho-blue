@@ -16,8 +16,8 @@ abstract contract TargetFunctions is BaseTargetFunctions, Properties, BeforeAfte
     }
 
     function morpho_borrow(uint256 assets) public {
-      vm.prank(SENDER_1);
-      morpho.borrow(marketParams, assets, 0, SENDER_1, SENDER_1);
+      vm.prank(msg.sender);
+      morpho.borrow(marketParams, assets, 0, msg.sender, msg.sender);
     }
 
     function morpho_flashLoan(uint256 assets, bytes memory data) public {
@@ -25,32 +25,32 @@ abstract contract TargetFunctions is BaseTargetFunctions, Properties, BeforeAfte
     }
 
     function morpho_liquidate(uint256 seizedAssets, bytes memory data) public {
-      vm.prank(SENDER_2);
-      morpho.liquidate(marketParams, SENDER_1, seizedAssets, 0, data);
+      vm.prank(msg.sender);
+      morpho.liquidate(marketParams, msg.sender, seizedAssets, 0, data);
     }
 
     function morpho_repay(uint256 assets, bytes memory data) public {
-      vm.prank(SENDER_1);
-      morpho.repay(marketParams, assets, 0, SENDER_1, data);
+      vm.prank(msg.sender);
+      morpho.repay(marketParams, assets, 0, msg.sender, data);
     }
 
     function morpho_supply(uint256 assets, bytes memory data) public {
-      vm.prank(SENDER_2);
-      morpho.supply(marketParams, assets, 0, SENDER_2, data);
+      vm.prank(msg.sender);
+      morpho.supply(marketParams, assets, 0, msg.sender, data);
     }
 
     function morpho_supplyCollateral(uint256 assets, bytes memory data) public {
-      vm.prank(SENDER_1);
-      morpho.supplyCollateral(marketParams, assets, SENDER_1, data);
+      vm.prank(msg.sender);
+      morpho.supplyCollateral(marketParams, assets, msg.sender, data);
     }
 
     function morpho_withdraw(uint256 assets) public {
-      vm.prank(SENDER_2);
-      morpho.withdraw(marketParams, assets, 0, SENDER_2, SENDER_2);
+      vm.prank(msg.sender);
+      morpho.withdraw(marketParams, assets, 0, msg.sender, msg.sender);
     }
 
     function morpho_withdrawCollateral(uint256 assets) public {
-      vm.prank(SENDER_1);
-      morpho.withdrawCollateral(marketParams, assets, SENDER_1, SENDER_1);
+      vm.prank(msg.sender);
+      morpho.withdrawCollateral(marketParams, assets, msg.sender, msg.sender);
     }
 }
