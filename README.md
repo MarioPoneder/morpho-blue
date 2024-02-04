@@ -1,3 +1,22 @@
+## Morpho Blue fuzzing setup using Recon
+
+**Goal:**  
+Create an example repo from an existing codebase for fuzzing with Medusa/Echidna using [Recon](https://getrecon.xyz/).
+
+**Steps:**
+1. Forked the [Morpho Blue codebase](https://github.com/morpho-org/morpho-blue/tree/f463e40f776acd0f26d0d380b51cfd02949c8c23) at the state of the [Cantina competition](https://cantina.xyz/competitions/d86b7f95-e574-4092-8ea2-78dcac2f54f1).
+2. Added [Recon-Fuzz/chimera](https://github.com/Recon-Fuzz/chimera) and [Recon](https://getrecon.xyz/) generated boilerplate contracts.
+3. Implemented setup routine for `Morpho` contract and restrained `TargetMethods` for fuzzing.
+4. Implemented a simple example property that "breaks" once `medusa fuzz` has found a way to supply collateral tokens, supply loan tokens and successfully borrow them.
+
+All the above steps and involved problems can be seen in the commit history.
+
+**Result:**  
+[Recon](https://getrecon.xyz/) reduced the entry barrier for building a fuzzing test and the example property was sucessfully broken.  
+This serves as a basis for more advanced fuzzing tests.
+
+---
+
 # Morpho Blue
 
 Morpho Blue is a noncustodial lending protocol implemented for the Ethereum Virtual Machine.
