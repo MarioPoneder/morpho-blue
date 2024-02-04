@@ -7,18 +7,24 @@ import {BeforeAfter} from "./BeforeAfter.sol";
 import {Properties} from "./Properties.sol";
 import {vm} from "@chimera/Hevm.sol";
 
+import {
+    MarketParams,
+    Authorization,
+    Signature
+} from "src/interfaces/IMorpho.sol";
+
 abstract contract TargetFunctions is BaseTargetFunctions, Properties, BeforeAfter {
 
-    function morpho_accrueInterest(tuple calldata marketParams) public {
-      morpho.accrueInterest(MarketParams(marketParams));
+    function morpho_accrueInterest(MarketParams calldata marketParams) public {
+      morpho.accrueInterest(marketParams);
     }
 
-    function morpho_borrow(tuple calldata marketParams, uint256 assets, uint256 shares, address onBehalf, address receiver) public {
-      morpho.borrow(MarketParams(marketParams), assets, shares, onBehalf, receiver);
+    function morpho_borrow(MarketParams calldata marketParams, uint256 assets, uint256 shares, address onBehalf, address receiver) public {
+      morpho.borrow(marketParams, assets, shares, onBehalf, receiver);
     }
 
-    function morpho_createMarket(tuple calldata marketParams) public {
-      morpho.createMarket(MarketParams(marketParams));
+    function morpho_createMarket(MarketParams calldata marketParams) public {
+      morpho.createMarket(marketParams);
     }
 
     function morpho_enableIrm(address irm) public {
@@ -29,28 +35,28 @@ abstract contract TargetFunctions is BaseTargetFunctions, Properties, BeforeAfte
       morpho.enableLltv(lltv);
     }
 
-    function morpho_flashLoan(address token, uint256 assets, bytes data) public {
+    function morpho_flashLoan(address token, uint256 assets, bytes calldata data) public {
       morpho.flashLoan(token, assets, data);
     }
 
-    function morpho_liquidate(tuple calldata marketParams, address borrower, uint256 seizedAssets, uint256 repaidShares, bytes data) public {
-      morpho.liquidate(MarketParams(marketParams), borrower, seizedAssets, repaidShares, data);
+    function morpho_liquidate(MarketParams calldata marketParams, address borrower, uint256 seizedAssets, uint256 repaidShares, bytes calldata data) public {
+      morpho.liquidate(marketParams, borrower, seizedAssets, repaidShares, data);
     }
 
-    function morpho_repay(tuple calldata marketParams, uint256 assets, uint256 shares, address onBehalf, bytes data) public {
-      morpho.repay(MarketParams(marketParams), assets, shares, onBehalf, data);
+    function morpho_repay(MarketParams calldata marketParams, uint256 assets, uint256 shares, address onBehalf, bytes calldata data) public {
+      morpho.repay(marketParams, assets, shares, onBehalf, data);
     }
 
     function morpho_setAuthorization(address authorized, bool newIsAuthorized) public {
       morpho.setAuthorization(authorized, newIsAuthorized);
     }
 
-    function morpho_setAuthorizationWithSig(tuple calldata authorization, tuple calldata signature) public {
-      morpho.setAuthorizationWithSig(Authorization(authorization), Signature(signature));
+    function morpho_setAuthorizationWithSig(Authorization calldata authorization, Signature calldata signature) public {
+      morpho.setAuthorizationWithSig(authorization, signature);
     }
 
-    function morpho_setFee(tuple calldata marketParams, uint256 newFee) public {
-      morpho.setFee(MarketParams(marketParams), newFee);
+    function morpho_setFee(MarketParams calldata marketParams, uint256 newFee) public {
+      morpho.setFee(marketParams, newFee);
     }
 
     function morpho_setFeeRecipient(address newFeeRecipient) public {
@@ -61,19 +67,19 @@ abstract contract TargetFunctions is BaseTargetFunctions, Properties, BeforeAfte
       morpho.setOwner(newOwner);
     }
 
-    function morpho_supply(tuple calldata marketParams, uint256 assets, uint256 shares, address onBehalf, bytes data) public {
-      morpho.supply(MarketParams(marketParams), assets, shares, onBehalf, data);
+    function morpho_supply(MarketParams calldata marketParams, uint256 assets, uint256 shares, address onBehalf, bytes calldata data) public {
+      morpho.supply(marketParams, assets, shares, onBehalf, data);
     }
 
-    function morpho_supplyCollateral(tuple calldata marketParams, uint256 assets, address onBehalf, bytes data) public {
-      morpho.supplyCollateral(MarketParams(marketParams), assets, onBehalf, data);
+    function morpho_supplyCollateral(MarketParams calldata marketParams, uint256 assets, address onBehalf, bytes calldata data) public {
+      morpho.supplyCollateral(marketParams, assets, onBehalf, data);
     }
 
-    function morpho_withdraw(tuple calldata marketParams, uint256 assets, uint256 shares, address onBehalf, address receiver) public {
-      morpho.withdraw(MarketParams(marketParams), assets, shares, onBehalf, receiver);
+    function morpho_withdraw(MarketParams calldata marketParams, uint256 assets, uint256 shares, address onBehalf, address receiver) public {
+      morpho.withdraw(marketParams, assets, shares, onBehalf, receiver);
     }
 
-    function morpho_withdrawCollateral(tuple calldata marketParams, uint256 assets, address onBehalf, address receiver) public {
-      morpho.withdrawCollateral(MarketParams(marketParams), assets, onBehalf, receiver);
+    function morpho_withdrawCollateral(MarketParams calldata marketParams, uint256 assets, address onBehalf, address receiver) public {
+      morpho.withdrawCollateral(marketParams, assets, onBehalf, receiver);
     }
 }

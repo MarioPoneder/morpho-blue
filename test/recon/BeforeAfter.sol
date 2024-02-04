@@ -7,7 +7,7 @@ import {Setup} from "./Setup.sol";
 abstract contract BeforeAfter is Setup {
 
     struct Vars {
-
+        uint256 __;
     }
 
     Vars internal _before;
