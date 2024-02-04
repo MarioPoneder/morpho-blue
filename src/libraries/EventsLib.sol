@@ -35,10 +35,9 @@ library EventsLib {
     event CreateMarket(Id indexed id, MarketParams marketParams);
 
     /// @notice Emitted on supply of assets.
-    /// @dev Warning: `feeRecipient` receives some shares during interest accrual without any supply event emitted.
     /// @param id The market id.
     /// @param caller The caller.
-    /// @param onBehalf The owner of the modified position.
+    /// @param onBehalf The address that received the supply.
     /// @param assets The amount of assets supplied.
     /// @param shares The amount of shares minted.
     event Supply(Id indexed id, address indexed caller, address indexed onBehalf, uint256 assets, uint256 shares);
@@ -46,7 +45,7 @@ library EventsLib {
     /// @notice Emitted on withdrawal of assets.
     /// @param id The market id.
     /// @param caller The caller.
-    /// @param onBehalf The owner of the modified position.
+    /// @param onBehalf The address from which the assets were withdrawn.
     /// @param receiver The address that received the withdrawn assets.
     /// @param assets The amount of assets withdrawn.
     /// @param shares The amount of shares burned.
@@ -62,7 +61,7 @@ library EventsLib {
     /// @notice Emitted on borrow of assets.
     /// @param id The market id.
     /// @param caller The caller.
-    /// @param onBehalf The owner of the modified position.
+    /// @param onBehalf The address from which the assets were borrowed.
     /// @param receiver The address that received the borrowed assets.
     /// @param assets The amount of assets borrowed.
     /// @param shares The amount of shares minted.
@@ -78,7 +77,7 @@ library EventsLib {
     /// @notice Emitted on repayment of assets.
     /// @param id The market id.
     /// @param caller The caller.
-    /// @param onBehalf The owner of the modified position.
+    /// @param onBehalf The address for which the assets were repaid.
     /// @param assets The amount of assets repaid. May be 1 over the corresponding market's `totalBorrowAssets`.
     /// @param shares The amount of shares burned.
     event Repay(Id indexed id, address indexed caller, address indexed onBehalf, uint256 assets, uint256 shares);
@@ -86,14 +85,14 @@ library EventsLib {
     /// @notice Emitted on supply of collateral.
     /// @param id The market id.
     /// @param caller The caller.
-    /// @param onBehalf The owner of the modified position.
+    /// @param onBehalf The address that received the collateral.
     /// @param assets The amount of collateral supplied.
     event SupplyCollateral(Id indexed id, address indexed caller, address indexed onBehalf, uint256 assets);
 
     /// @notice Emitted on withdrawal of collateral.
     /// @param id The market id.
     /// @param caller The caller.
-    /// @param onBehalf The owner of the modified position.
+    /// @param onBehalf The address from which the collateral was withdrawn.
     /// @param receiver The address that received the withdrawn collateral.
     /// @param assets The amount of collateral withdrawn.
     event WithdrawCollateral(
@@ -107,8 +106,7 @@ library EventsLib {
     /// @param repaidAssets The amount of assets repaid. May be 1 over the corresponding market's `totalBorrowAssets`.
     /// @param repaidShares The amount of shares burned.
     /// @param seizedAssets The amount of collateral seized.
-    /// @param badDebtAssets The amount of assets of bad debt realized.
-    /// @param badDebtShares The amount of borrow shares of bad debt realized.
+    /// @param badDebtShares The amount of shares minted as bad debt.
     event Liquidate(
         Id indexed id,
         address indexed caller,
@@ -116,7 +114,6 @@ library EventsLib {
         uint256 repaidAssets,
         uint256 repaidShares,
         uint256 seizedAssets,
-        uint256 badDebtAssets,
         uint256 badDebtShares
     );
 
