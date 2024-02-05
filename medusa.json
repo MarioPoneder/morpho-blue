@@ -76,7 +76,7 @@
       "target": ".",
       "solcVersion": "",
       "exportDirectory": "",
-      "args": []
+      "args": ["--compile-libraries=(SigUtils,0xf1)"]
     }
   },
   "logging": {
