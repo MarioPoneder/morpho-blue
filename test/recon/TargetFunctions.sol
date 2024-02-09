@@ -12,6 +12,7 @@ import {MarketParams} from "src/interfaces/IMorpho.sol";
 abstract contract TargetFunctions is BaseTargetFunctions, Properties, BeforeAfter {
 
     function morpho_accrueInterest() public {
+      vm.prank(msg.sender);
       morpho.accrueInterest(marketParams);
     }
 
@@ -20,7 +21,13 @@ abstract contract TargetFunctions is BaseTargetFunctions, Properties, BeforeAfte
       morpho.borrow(marketParams, assets, 0, msg.sender, msg.sender);
     }
 
+    function morpho_borrow2(uint256 assets) public {
+      vm.prank(SENDER_1);
+      morpho.borrow(marketParams2, assets, 0, SENDER_1, SENDER_1);
+    }
+
     function morpho_flashLoan(uint256 assets, bytes memory data) public {
+      vm.prank(msg.sender);
       morpho.flashLoan(address(collateralToken), assets, data);
     }
 

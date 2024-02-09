@@ -21,7 +21,8 @@ abstract contract Setup is BaseSetup {
     address constant SENDER_3 = address(0x30000);
 
     uint256 constant DEFAULT_ORACLE_PRICE = 1e36; // collateral : loan = 1 : 1
-    uint256 constant DEFAULT_LLTV = 0.8 ether;    // 80%
+    uint256 constant LLTV_80 = 0.8 ether;    // 80%
+    uint256 constant LLTV_50 = 0.5 ether;    // 50%
 
     Morpho morpho;
 
@@ -33,6 +34,9 @@ abstract contract Setup is BaseSetup {
 
     MarketParams marketParams;
     Id marketId;
+
+    MarketParams marketParams2;
+    Id marketId2;
 
     function setup() internal virtual override {
       // create morpho
@@ -52,10 +56,16 @@ abstract contract Setup is BaseSetup {
       morpho.enableIrm(address(irm));
       
       // create market
-      morpho.enableLltv(DEFAULT_LLTV);
-      marketParams = MarketParams(address(loanToken), address(collateralToken), address(oracle), address(irm), DEFAULT_LLTV);
+      morpho.enableLltv(LLTV_80);
+      marketParams = MarketParams(address(loanToken), address(collateralToken), address(oracle), address(irm), LLTV_80);
       morpho.createMarket(marketParams);
       marketId = marketParams.id();
+
+      // create market 2
+      morpho.enableLltv(LLTV_50);
+      marketParams2 = MarketParams(address(loanToken), address(collateralToken), address(oracle), address(irm), LLTV_50);
+      morpho.createMarket(marketParams2);
+      marketId2 = marketParams2.id();
 
       // set token balances and give approval to morpho
       collateralToken.setBalance(SENDER_1, type(uint128).max);
