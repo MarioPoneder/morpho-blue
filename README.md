@@ -8,11 +8,12 @@ Create an example repo from an existing codebase for fuzzing with Medusa/Echidna
 2. Added [Recon-Fuzz/chimera](https://github.com/Recon-Fuzz/chimera) and [Recon](https://getrecon.xyz/) generated boilerplate contracts.
 3. Implemented setup routine for `Morpho` contract and restrained `TargetMethods` for fuzzing.
 4. Implemented a simple example property that "breaks" once `medusa fuzz` has found a way to supply collateral tokens, supply loan tokens and successfully borrow them.
+5. Implemented an assertion test that fails once Medusa finds a case where *no* interest was accrued although interest *should* have been accrued for a market.
 
 All the above steps and involved problems can be seen in the commit history.
 
 **Result:**  
-[Recon](https://getrecon.xyz/) reduced the entry barrier for building a fuzzing test and the example property was sucessfully broken.  
+[Recon](https://getrecon.xyz/) reduced the entry barrier for building a fuzzing test and the example property and assertion test were sucessfully broken.  
 This serves as a basis for more advanced fuzzing tests.
 
 ---
