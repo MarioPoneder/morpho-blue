@@ -33,7 +33,7 @@ contract CryticTester is TargetFunctions, CryticAsserts {
         _morpho.accrueInterest(marketParams2);
         uint256 totalBorrowAfterAccrued = _morpho.market(marketId2).totalBorrowAssets;
 
-        // assertion is triggered if nothing was borrowed
+        // assertion is triggered if no interest was accrued
         assert(totalBorrowAfterAccrued > totalBorrowBeforeAccrued);
     }
 }
